@@ -4,8 +4,8 @@ import arcpy,time
 startTime = time.time()
 
 # Poles use shape@ to create point feature for damage assessment
-PoleFldsOrig = ['GLOBALID','SUBTYPE','OWNER','FACILITYID','POLESIZE','MATERIAL','COLOR','TREATMENTTYPE','YEARMANUFACTURED','STUBDATE','BILLINGGROUP','FEEDERIDS','INSTALL_NUM','UNIT_TYPE','STREETADDRESS','BACKBONEINDICATOR','SHAPE@']
-PoleFldsDest = ['eSupportStructure_GLOBALID','eSupportStructure_SUBTYPE','eSupportStructure_OWNER','eSupportStructure_FACILITYID','eSupportStructure_POLESIZE','eSupportStructure_MATERIAL','eSupportStructure_COLOR','eSupportStructure_TREATMENTTYPE','eSupportStructure_YEARMANUFACTURED','eSupportStructure_STUBDATE','eSupportStructure_BILLINGGROUP','eSupportStructure_FEEDERIDS','eSupportStructure_INSTALLNUM','eSupportStructure_UNITTYPE','eSupportStructure_STREETADDRESS','eSupportStructure_BACKBONE','SHAPE@']
+PoleFldsOrig = ['GLOBALID','SUBTYPE','OWNER','FACILITYID','POLESIZE','MATERIAL','COLOR','TREATMENTTYPE','YEARMANUFACTURED','STUBDATE','BILLINGGROUP','FEEDERIDS','INSTALL_NUM','UNIT_TYPE','STREETADDRESS','BACKBONEINDICATOR','StockNumber','SHAPE@']
+PoleFldsDest = ['eSupportStructure_GLOBALID','eSupportStructure_SUBTYPE','eSupportStructure_OWNER','eSupportStructure_FACILITYID','eSupportStructure_POLESIZE','eSupportStructure_MATERIAL','eSupportStructure_COLOR','eSupportStructure_TREATMENTTYPE','eSupportStructure_YEARMANUFACTURED','eSupportStructure_STUBDATE','eSupportStructure_BILLINGGROUP','eSupportStructure_FEEDERIDS','eSupportStructure_INSTALLNUM','eSupportStructure_UNITTYPE','eSupportStructure_STREETADDRESS','eSupportStructure_BACKBONE','eSupportStructure_StockNumber','SHAPE@']
 
 # feature classes that have 1:1 relationship with poles
 CapBankFldsOrig = ['eSupportStructure_GLOBALID','DEVICEID','SUBTYPE','STRUCTUREID','GLOBALID']
@@ -69,10 +69,10 @@ fldsDestTX = [TXFldsDest,TXFldsDest2]
 #workspace = r'Database Connections\grucwgisdv01_MapEDPR_OSAuth.sde'
 
 # fGDB variables
-unitTable = r'C:\arcdata\MIMS_Electric_Extract_1.gdb\MIMS\mmPoleEquipment'
+unitTable = r'C:\arcdata\transfer\MIMS_Electric_Extract.gdb\MIMS\mmPoleEquipment'
 #unitTableSDE = r'Database Connections\grucwgisdv01_MapEDPR_OSAuth.sde\mapedpr.ARCFM_ED.MM_PoleEquipment'
-connectionRoot = r'C:\arcdata\MIMS_Electric_Extract_1.gdb\%s'
-workspace = r'C:\arcdata\MIMS_Electric_Extract_1.gdb'
+connectionRoot = r'C:\arcdata\transfer\MIMS_Electric_Extract.gdb\%s'
+workspace = r'C:\arcdata\transfer\MIMS_Electric_Extract.gdb'
 
 
 # feature classes
@@ -144,10 +144,9 @@ else:
 
 
 
-print 'Processing...you gotta wait now'
 # Start Main
 with arcpy.da.Editor(workspace) as edit:
-    #print 'Inserting...',poleFC
+    print 'Inserting...',poleFC
     ic = arcpy.da.InsertCursor(unitTable,PoleFldsDest)
     with arcpy.da.SearchCursor(connectionRoot%(poleFC),PoleFldsOrig) as sc:
         for scrow in sc:
@@ -163,12 +162,13 @@ with arcpy.da.Editor(workspace) as edit:
     idx = -1
     for fc in origFC:
         idx +=1
-        #print 'Updating...',fc
+        print 'Updating...',fc
         with arcpy.da.SearchCursor(connectionRoot%(fc),fldsOrig[idx],where_clause="eSupportStructure_GLOBALID IS NOT NULL",sql_clause=(None,"ORDER BY eSupportStructure_GLOBALID")) as sCur:
             for sCurRow in sCur:
                 with arcpy.da.UpdateCursor(unitTable,fldsDest[idx],where_clause="eSupportStructure_GLOBALID = " + "'" + sCurRow[0] + "'",sql_clause=(None,"ORDER BY eSupportStructure_GLOBALID")) as uCur:
                     for uCurRow in uCur:
                         uCur.updateRow(sCurRow)
+    print 'Processing...you gotta wait now'
     idx = -1
     count = 0
     with arcpy.da.SearchCursor(unitTable,['eSupportStructure_GLOBALID'],sql_clause=(None,"ORDER BY eSupportStructure_GLOBALID")) as unitCur:

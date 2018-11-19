@@ -1,4 +1,3 @@
-#todo fix 'eSupportStructure_YEARMANUFACTU'
 import arcpy
 
 # # place list of fields above into another list for loop processing below
