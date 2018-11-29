@@ -18,7 +18,8 @@ workspace = r'C:\arcdata\transfer\MIMS_Electric_Extract.gdb'
 
 # feature classes and fields
 #MM_ELECTRICSEARCH_XML = "C:/arcdata/MIMSMobile/MIMS_DATASET.XML"
-MM_POLEEQUIPMENT_XML = "C:/arcdata/MIMSMobile/MIMS_DATASET_20181019.xml"
+#MM_POLEEQUIPMENT_XML = "C:/arcdata/MIMSMobile/MIMS_DATASET_20181019.xml"
+MM_ELECTRICSEARCH_XML = "C:/arcdata/MIMSMobile/MIMS_DATASET_20181019.xml"
 fcFeederIDs = ['eCabinetStructure','eSupportStructure','eSurfaceStructure']
 fldsFeederIDs = ['FACILITYID','STREETADDRESS','FEEDERIDS','SHAPE@']
 fcFacilityID = ['eLight']

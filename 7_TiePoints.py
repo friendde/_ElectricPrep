@@ -8,7 +8,8 @@ electricFDS = r'C:\arcdata\transfer\MIMS_Electric_Extract.gdb\Electric\%s'
 workspace = r'C:\arcdata\transfer\MIMS_Electric_Extract.gdb'
 
 # feature classes and fields
-MM_TIEPOINTS_XML = "C:/arcdata/MIMSMobile/MIMS_DATASET.XML"
+#MM_TIEPOINTS_XML = "C:/arcdata/MIMSMobile/MIMS_DATASET.XML"
+MM_TIEPOINTS_XML = "C:/arcdata/MIMSMobile/MIMS_DATASET_20181019.xml"
 fcTiePoints = ['eFuse','eSwitch']
 origFldsTiePoint = ['SHAPE@','DEVICEID','FEEDERID','FEEDERID2','STREETADDRESS','GLOBALID','STRUCTUREID','FACILITYID','StockNumber','StandardLabel','DisplayLabel']
 destFldsTiePoint = ['SHAPE@','DEVICEID','FEEDERID','FEEDERID2','STREETADDRESS','GLOBALID','STRUCTUREID','FACILITYID','StockNumber','StandardLabel','DisplayLabel','FacilityType']

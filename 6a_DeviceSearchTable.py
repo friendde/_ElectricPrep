@@ -1,4 +1,3 @@
-#todo fix 'eSupportStructure_YEARMANUFACTU'
 import arcpy
 
 # # place list of fields above into another list for loop processing below
@@ -19,7 +18,7 @@ workspace = r'C:\arcdata\transfer\MIMS_Electric_Extract.gdb'
 
 # feature classes and fields
 #MM_ELECTRICSEARCH_XML = "C:/arcdata/MIMSMobile/MIMS_DATASET.XML"
-MM_ELECTRICSEARCH_XML = "C:/arcdata/MIMSMobile/MIMS_DATASET_20181019.xml"
+MM_DEVICESEARCH_XML = "C:/arcdata/MIMSMobile/MIMS_DATASET_20181019.xml"
 fcFeederIDs = ['eCabinetStructure','eSurfaceStructure']
 fldsFeederIDs = ['FACILITYID','STREETADDRESS','FEEDERIDS','SHAPE@']
 #fcFacilityID = ['eLight']
@@ -96,7 +95,7 @@ if arcpy.Exists(searchTable):
      print 'Truncating...',searchTable
      arcpy.TruncateTable_management(searchTable)
 else:
-     arcpy.ImportXMLWorkspaceDocument_management(workspace, MM_ELECTRICSEARCH_XML, "Schema_Only")
+     arcpy.ImportXMLWorkspaceDocument_management(workspace, MM_DEVICESEARCH_XML, "Schema_Only")
 
 # Start Main
 with arcpy.da.Editor(workspace) as edit:
