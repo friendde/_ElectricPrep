@@ -1,5 +1,6 @@
 #todo fix 'eSupportStructure_YEARMANUFACTU'
-import arcpy,time
+import arcpy
+import time
 
 startTime = time.time()
 
@@ -125,14 +126,17 @@ def updateRelatedUnits(row,destFlds,guid):
         
 # prep unitTable
 if not arcpy.Exists(unitTable):
-    arcpy.ImportXMLWorkspaceDocument_management(workspace, MM_POLEEQUIPMENT_XML, "Schema_Only")
+    print('%s not found')% unitTable
+    quit()
+    #arcpy.ImportXMLWorkspaceDocument_management(workspace, MM_POLEEQUIPMENT_XML, "Schema_Only")
     #print('Setting default value: %s) % (stormName)
-    arcpy.AssignDefaultToField_management(unitTable,"StormName",stormName)
+    #arcpy.AssignDefaultToField_management(unitTable,"StormName",stormName)
     #print('Setting default value: %i) % (sapNetwork)
     #arcpy.AssignDefaultToField_management(unitTable,"SAPNetwork",sapNetwork)
 else:
     print 'Truncating...',unitTable
     arcpy.TruncateTable_management(unitTable)
+    arcpy.AssignDefaultToField_management(unitTable,"StormName",stormName)
 #print 'Checking for index eSupportStructure_GLOABLID...'
 #indexes = arcpy.ListIndexes(unitTable)
 #indexNames = []
