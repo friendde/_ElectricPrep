@@ -125,7 +125,7 @@ with arcpy.da.UpdateCursor(wksp + '\eTransformerBank',['StandardLabel','DeviceID
 # Fuse
 #with arcpy.da.Editor(wksp) as edit:
 print 'Processing %-5s %s' % ('eFuse',standardLabel)
-with arcpy.da.UpdateCursor(wksp + '\eFuse',['StandardLabel','DeviceID','Subtype','Rating_A','Rating_B','Rating_C','PhaseDesignation','STATUS'],"STATUS = '1'") as fuseuc:
+with arcpy.da.UpdateCursor(wksp + '\eFuse',['StandardLabel','DeviceID','Subtype','Rating_A','Rating_B','Rating_C','PhaseDesignation','STATUS','FacilityID','DisplayLabel'],"STATUS = '1'") as fuseuc:
        for fuse in fuseuc:
                phase = ''
                deviceID = ''
@@ -135,46 +135,60 @@ with arcpy.da.UpdateCursor(wksp + '\eFuse',['StandardLabel','DeviceID','Subtype'
                        deviceID = fuse[1] + ' '
                        if fuse[6] == 1:
                                fuse[0] = deviceID + fuse[5] + phase
+                               fuse[9] = fuse[8] + fuse[5] + phase
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 2:
                                fuse[0] = deviceID + fuse[4] + phase
+                               fuse[9] = fuse[8] + fuse[4] + phase
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 3:
-                               fuse[0] = deviceID + ',' + fuse[4] + ',' + fuse[5] + phase
+                               fuse[0] = deviceID + fuse[4] + phase
+                               fuse[9] = fuse[8] + fuse[4] + phase
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 4:
                                fuse[0] = deviceID + fuse[3] + phase
+                               fuse[9] = fuse[8] + fuse[3] + phase
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 5:
-                               fuse[0] = deviceID + ',' + fuse[4] + ',' + fuse[5] + phase
+                               fuse[0] = deviceID + fuse[5] + phase
+                               fuse[9] = fuse[8] + fuse[5] + phase
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 6:
-                               fuse[0] = deviceID + ',' + fuse[3] + ',' + fuse[4] + phase
+                               fuse[0] = deviceID + fuse[3] + phase
+                               fuse[9] = fuse[8] + fuse[3] + phase
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 7:
-                               fuse[0] = deviceID + ',' + fuse[3] + ',' + fuse[4] + ',' + fuse[5] + phase
+                               fuse[0] = deviceID + ',' + fuse[3] + phase
+                               fuse[9] = fuse[8] + fuse[3] + phase
                                fuseuc.updateRow(fuse)
                else:
                        if fuse[6] == 1:
                                fuse[0] = fuse[5] + phase
+                               fuse[9] = fuse[8] + fuse[5] + phase
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 2:
                                fuse[0] = fuse[4] + phase
+                               fuse[9] = fuse[8] + fuse[4] + phase
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 3:
-                               fuse[0] = fuse[4] + ',' + fuse[5] + phase
+                               fuse[0] = fuse[5] + phase
+                               fuse[9] = fuse[8] + fuse[5] + phase
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 4:
                                fuse[0] = fuse[3] + phase
+                               fuse[9] = fuse[8] + fuse[3] + phase
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 5:
-                               fuse[0] = fuse[4] + ',' + fuse[5] + phase
+                               fuse[0] = fuse[5] + phase
+                               fuse[9] = fuse[8] + fuse[5] + phase
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 6:
-                               fuse[0] = fuse[3] + ',' + fuse[4] + phase
+                               fuse[0] = fuse[3] + phase
+                               fuse[9] = fuse[8] + fuse[3] + phase
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 7:
-                               fuse[0] = fuse[3] + ',' + fuse[4] + ',' + fuse[5] + phase
+                               fuse[0] = fuse[5] + phase
+                               fuse[9] = fuse[8] + fuse[5] + phase
                                fuseuc.updateRow(fuse)
 # Switch CapacitorBank
 #with arcpy.da.Editor(wksp) as edit:

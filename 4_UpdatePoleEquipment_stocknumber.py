@@ -6,7 +6,7 @@ startTime = time.time()
 
 # Poles use shape@ to create point feature for damage assessment
 PoleFldsOrig = ['GLOBALID','SUBTYPE','OWNER','FACILITYID','POLESIZE','MATERIAL','COLOR','TREATMENTTYPE','YEARMANUFACTURED','STUBDATE','BILLINGGROUP','FEEDERIDS','INSTALL_NUM','UNIT_TYPE','STREETADDRESS','BACKBONEINDICATOR','StockNumber','SHAPE@']
-PoleFldsDest = ['eSupportStructure_GLOBALID','eSupportStructure_SUBTYPE','eSupportStructure_OWNER','eSupportStructure_FACILITYID','eSupportStructure_POLESIZE','eSupportStructure_MATERIAL','eSupportStructure_COLOR','eSupportStructure_TREATMENTTYPE','eSupportStructure_YEARMANUFACTURED','eSupportStructure_STUBDATE','eSupportStructure_BILLINGGROUP','eSupportStructure_FEEDERIDS','eSupportStructure_INSTALLNUM','eSupportStructure_UNITTYPE','eSupportStructure_STREETADDRESS','eSupportStructure_BACKBONE','eSupportStructure_StockNumber','SHAPE@']
+PoleFldsDest = ['eSupportStructure_GLOBALID','eSupportStructure_SUBTYPE','eSupportStructure_OWNER','eSupportStructure_FACILITYID','eSupportStructure_POLESIZE','eSupportStructure_MATERIAL','eSupportStructure_COLOR','eSupportStructure_TREATMENTTYPE','eSupportStructure_YEARMANUFACTU','eSupportStructure_STUBDATE','eSupportStructure_BILLINGGROUP','eSupportStructure_FEEDERIDS','eSupportStructure_INSTALLNUM','eSupportStructure_UNITTYPE','eSupportStructure_STREETADDRESS','eSupportStructure_BACKBONE','eSupportStructure_StockNumber','SHAPE@']
 
 # feature classes that have 1:1 relationship with poles
 CapBankFldsOrig = ['eSupportStructure_GLOBALID','DEVICEID','SUBTYPE','STRUCTUREID','GLOBALID']
