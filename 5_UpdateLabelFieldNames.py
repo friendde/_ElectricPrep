@@ -32,6 +32,9 @@ def getPhaseDesignation(phaseDesignation):
         if phaseDesignation == 7:
                 ph = '-ABC'
                 return ph
+def getFuseFacilityID(facilityID, structureID, device):
+        if facilityID is None:
+                return structureID + '-' + device
 
 #try:
 #with arcpy.da.Editor(wksp) as edit:
@@ -125,43 +128,50 @@ with arcpy.da.UpdateCursor(wksp + '\eTransformerBank',['StandardLabel','DeviceID
 # Fuse
 #with arcpy.da.Editor(wksp) as edit:
 print 'Processing %-5s %s' % ('eFuse',standardLabel)
-with arcpy.da.UpdateCursor(wksp + '\eFuse',['StandardLabel','DeviceID','Subtype','Rating_A','Rating_B','Rating_C','PhaseDesignation','STATUS','FacilityID','DisplayLabel'],"STATUS = '1'") as fuseuc:
-       for fuse in fuseuc:
-               phase = ''
-               deviceID = ''
-               if fuse[6] is not None:
-                       phase = getPhaseDesignation(fuse[6])
-               if fuse[1][:3].upper() not in ['NON','UNK','']:
-                       deviceID = fuse[1] + ' '
-                       if fuse[6] == 1:
-                               fuse[0] = deviceID + fuse[5] + phase
-                               fuse[9] = fuse[8] + fuse[5] + phase
-                               fuseuc.updateRow(fuse)
-                       if fuse[6] == 2:
-                               fuse[0] = deviceID + fuse[4] + phase
-                               fuse[9] = fuse[8] + fuse[4] + phase
-                               fuseuc.updateRow(fuse)
-                       if fuse[6] == 3:
-                               fuse[0] = deviceID + fuse[4] + phase
-                               fuse[9] = fuse[8] + fuse[4] + phase
-                               fuseuc.updateRow(fuse)
-                       if fuse[6] == 4:
+with arcpy.da.UpdateCursor(wksp + '\eFuse',['StandardLabel','DeviceID','Subtype','Rating_A','Rating_B','Rating_C','PhaseDesignation','STATUS','FacilityID','DisplayLabel','StructureID'],"STATUS = '1'") as fuseuc:
+        for fuse in fuseuc:
+                phase = ''
+                deviceID = ''
+                if fuse[6] is not None:
+                        phase = getPhaseDesignation(fuse[6])
+                if fuse[1][:3].upper() not in ['NON','UNK','']:
+                        deviceID = fuse[1] + ' '
+                        if fuse[6] == 1:
+                                fuse[0] = deviceID + fuse[5] + phase
+                                fuse9 = '-'.join(map(str,[fuse[8],fuse[5],phase]))
+                                fuse[9] = fuse9
+                                fuseuc.updateRow(fuse)
+                        if fuse[6] == 2:
+                                fuse[0] = deviceID + fuse[4] + phase
+                                fuse9 = '-'.join(map(str,[fuse[8],fuse[4],phase]))
+                                fuse[9] = fuse9
+                                fuseuc.updateRow(fuse)
+                        if fuse[6] == 3:
+                                fuse[0] = deviceID + fuse[4] + phase
+                                fuse9 = '-'.join(map(str,[fuse[8],fuse[4],phase]))
+                                fuse[9] = fuse9
+                                fuseuc.updateRow(fuse)
+                        if fuse[6] == 4:
                                fuse[0] = deviceID + fuse[3] + phase
-                               fuse[9] = fuse[8] + fuse[3] + phase
+                               fuse9 = '-'.join(map(str,[fuse[8],fuse[3],phase]))
+                               fuse[9] = fuse9
                                fuseuc.updateRow(fuse)
-                       if fuse[6] == 5:
+                        if fuse[6] == 5:
                                fuse[0] = deviceID + fuse[5] + phase
-                               fuse[9] = fuse[8] + fuse[5] + phase
+                               fuse9 = '-'.join(map(str,[fuse[8],fuse[5],phase]))
+                               fuse[9] = fuse9
                                fuseuc.updateRow(fuse)
-                       if fuse[6] == 6:
+                        if fuse[6] == 6:
                                fuse[0] = deviceID + fuse[3] + phase
-                               fuse[9] = fuse[8] + fuse[3] + phase
+                               fuse9 = '-'.join(map(str,[fuse[8],fuse[3],phase]))
+                               fuse[9] = fuse9
                                fuseuc.updateRow(fuse)
-                       if fuse[6] == 7:
-                               fuse[0] = deviceID + ',' + fuse[3] + phase
-                               fuse[9] = fuse[8] + fuse[3] + phase
+                        if fuse[6] == 7:
+                               fuse[0] = deviceID + fuse[3] + phase
+                               fuse9 = '-'.join(map(str,[fuse[8],fuse[3],phase]))
+                               fuse[9] = fuse9
                                fuseuc.updateRow(fuse)
-               else:
+                else:
                        if fuse[6] == 1:
                                fuse[0] = fuse[5] + phase
                                fuse[9] = fuse[8] + fuse[5] + phase
