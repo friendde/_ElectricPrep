@@ -32,9 +32,10 @@ def getPhaseDesignation(phaseDesignation):
         if phaseDesignation == 7:
                 ph = '-ABC'
                 return ph
-def getFuseFacilityID(facilityID, structureID, device):
+def getFuseFacilityID(facilityID, rating, ph):
         if facilityID is None:
-                return structureID + '-' + device
+                fID = rating + '-' + ph
+                return fID
 
 #try:
 #with arcpy.da.Editor(wksp) as edit:
@@ -174,31 +175,31 @@ with arcpy.da.UpdateCursor(wksp + '\eFuse',['StandardLabel','DeviceID','Subtype'
                 else:
                        if fuse[6] == 1:
                                fuse[0] = fuse[5] + phase
-                               fuse[9] = fuse[8] + fuse[5] + phase
+                               fuse[9] = getFuseFacilityID(fuse[8],fuse[5],phase)
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 2:
                                fuse[0] = fuse[4] + phase
-                               fuse[9] = fuse[8] + fuse[4] + phase
+                               fuse[9] = getFuseFacilityID(fuse[8],fuse[4],phase)
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 3:
                                fuse[0] = fuse[5] + phase
-                               fuse[9] = fuse[8] + fuse[5] + phase
+                               fuse[9] = getFuseFacilityID(fuse[8],fuse[5],phase)
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 4:
                                fuse[0] = fuse[3] + phase
-                               fuse[9] = fuse[8] + fuse[3] + phase
+                               fuse[9] = getFuseFacilityID(fuse[8],fuse[3],phase)
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 5:
                                fuse[0] = fuse[5] + phase
-                               fuse[9] = fuse[8] + fuse[5] + phase
+                               fuse[9] = getFuseFacilityID(fuse[8],fuse[5],phase)
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 6:
                                fuse[0] = fuse[3] + phase
-                               fuse[9] = fuse[8] + fuse[3] + phase
+                               fuse[9] = getFuseFacilityID(fuse[8],fuse[3],phase)
                                fuseuc.updateRow(fuse)
                        if fuse[6] == 7:
                                fuse[0] = fuse[5] + phase
-                               fuse[9] = fuse[8] + fuse[5] + phase
+                               fuse[9] = getFuseFacilityID(fuse[8],fuse[5],phase)
                                fuseuc.updateRow(fuse)
 # Switch CapacitorBank
 #with arcpy.da.Editor(wksp) as edit:
