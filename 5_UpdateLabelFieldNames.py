@@ -69,18 +69,11 @@ with arcpy.da.UpdateCursor(wksp + '\eTransformerBank',['StandardLabel','DeviceID
                        deviceID = tx[1]
                # OH 1PH
                if tx[2] == 1:
-                       if tx[3] is not None and tx[3] != 'NONE':
-                               tx[0] = tx[3] + phase
-                               txuc.updateRow(tx)
-                       if tx[4] is not None and tx[3] != 'NONE':
-                               tx[0] = tx[4] + phase
-                               txuc.updateRow(tx)
-                       if tx[5] is not None and tx[3] != 'NONE':
-                               tx[0] = tx[5] + phase
-                               txuc.updateRow(tx)
-                       if tx[6] is not None and tx[3] != 'NONE':
-                               tx[0] = tx[6] + '-Spare'
-                               txuc.updateRow(tx)
+                       kva = (tx[3],tx[4],tx[5],tx[6])
+                       for k in kva:
+                               if k is not None and k[:1].isdigit():
+                                       tx[0] = k + phase
+                                       txuc.updateRow(tx)
                # OH 2PH
                if tx[2] == 2:
                        # check OH 2PH BC
