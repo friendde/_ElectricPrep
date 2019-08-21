@@ -8,7 +8,7 @@ timeout /t 30
 call 3_AddLabelFieldNames_fgdb.py
 timeout /t 30
 ::call 4_UpdatePoleEquipment.py
-::call 4_UpdatePoleEquipment_stocknumber.py
+call 4_UpdatePoleEquipment_stocknumber.py
 timeout /t 30
 call 5_UpdateLabelFieldNames.py
 timeout /t 30
